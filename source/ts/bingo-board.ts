@@ -1,7 +1,6 @@
 import {Chance} from 'chance';
 import textFit from 'textfit';
 
-import {TileState} from './tile-state';
 import {Option} from './options';
 import {Tile} from './tile';
 
@@ -41,20 +40,24 @@ export class BingoBoard {
 
   /// Adds listeners to the `#bingo-table` element to modify tile colors.
   private addListeners(): void {
-    const table = document.getElementById('bingo-table') as HTMLTableElement;
-
-    for (let i = 0; i < 5; ++i) {
-      const row = table.rows[i];
-      for (let k = 0; k < 5; ++k) {
-        const col = row.cells[k];
-        const state = new TileState();
-        col.onclick = event => {
-          const elem = event.target as HTMLTableElement;
-          state.increment();
-          elem.style.backgroundColor = state.color;
-        };
+    document.getElementById('bingo-table')!.addEventListener('click', e => {
+      const target = e.target as HTMLElement;
+      const cell =
+        target instanceof HTMLTableCellElement
+          ? target
+          : target.parentElement instanceof HTMLTableCellElement
+          ? target.parentElement
+          : null;
+      if (cell) {
+        if (!cell.dataset.state) {
+          cell.dataset.state = 'yes';
+        } else if (cell.dataset.state === 'yes') {
+          cell.dataset.state = 'no';
+        } else {
+          delete cell.dataset.state;
+        }
       }
-    }
+    });
   }
 }
 
