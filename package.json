@@ -5,7 +5,7 @@
     "build": "npm-run-all clean-build build:webpack build:11ty -p minify:*",
     "fix": "npm-run-all fix:gts fix:prettier",
     "fix:gts": "gts fix",
-    "fix:prettier": "prettier -w source/**/*.{md,html,scss} *.{json,js,md}",
+    "fix:prettier": "prettier -w source/**/*.{md,html,scss} *.{json,js,md} .*.{json,js}",
     "watch:webpack": "rm -f source/ts/index.js && webpack --watch --mode=development",
     "watch:11ty": "eleventy --serve",
     "clean-build": "rimraf build",
@@ -16,7 +16,7 @@
     "lint": "npm-run-all lint:gts lint:tsc lint:prettier",
     "lint:gts": "gts lint",
     "lint:tsc": "tsc --noEmit",
-    "lint:prettier": "prettier --check source/**/*.{md,html,scss} *.{json,js,md}",
+    "lint:prettier": "prettier --check source/**/*.{md,html,scss} *.{json,js,md} .*.{json,js}",
     "clean": "gts clean"
   },
   "author": "DistractionCrab, Natalie Weizenbaum",
