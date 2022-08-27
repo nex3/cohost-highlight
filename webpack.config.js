@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   context: __dirname,
-  entry:  ['./source/ts/index.ts', './source/css/styles.scss'],
+  entry: ['./source/ts/index.ts', './source/css/styles.scss'],
   output: {
     filename: 'source/ts/index.js',
     path: __dirname,
