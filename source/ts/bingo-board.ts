@@ -19,7 +19,7 @@ export class BingoBoard {
 
   /// Returns the bingo tiles in a format accepted by bingosync.com. Must be called after
   /// `generate()`.
-  getGoalString(): string {
+  get goalString(): string {
     return JSON.stringify(this.tiles.map(tile => ({name: tile.text})));
   }
 

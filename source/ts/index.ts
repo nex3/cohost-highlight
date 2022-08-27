@@ -8,17 +8,24 @@ import {options as sekiro} from './config/sekiro';
 const configs: Record<string, Option> = {sekiro, ds3};
 
 const options = configs[document.body.dataset.bingo as string];
+let bingo: BingoBoard | undefined;
 
-declare global {
-  interface Window {
-    seed: () => void;
-  }
+/// Creates a new bingo board with the given `rng`.
+function setBoard(rng: Chance.Chance): void {
+  bingo = new BingoBoard(options, rng);
+  bingo.writeToBoard();
 }
 
-window.seed = () => {
-  const field = document.getElementById('seed') as HTMLInputElement;
-  const text = field.value;
-  new BingoBoard(options, new Chance.Chance(parseInt(text))).writeToBoard();
-};
+const seedForm = document.getElementById('seed') as HTMLFormElement;
+seedForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const input = seedForm.querySelector('input[type=number]') as HTMLInputElement;
+  setBoard(input.value === '' ? new Chance.Chance() : new Chance.Chance(input.value));
+});
 
-document.addEventListener('DOMContentLoaded', () => new BingoBoard(options).writeToBoard(), false);
+const bingosyncButton = document.getElementById('bingosync') as HTMLButtonElement;
+bingosyncButton.addEventListener('click', () => {
+  if (bingo) navigator.clipboard.writeText(bingo.goalString);
+});
+
+document.addEventListener('DOMContentLoaded', () => setBoard(new Chance.Chance()), false);

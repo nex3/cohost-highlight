@@ -63,3 +63,16 @@ body {
     border-bottom-style: solid;
   }
 }
+
+#buttons {
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  width: 100%;
+
+  > * {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+}

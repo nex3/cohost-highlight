@@ -39,13 +39,16 @@ layout: layout
         <td id="r5c5"></td>
     </tr>
 </table>
+
+<div id="buttons">
+    <form id="seed" action="#">
+        <button>Regenerate with Seed</button>
+        <input width="50px" />
+    </form>
+
+    <button type="button" id="bingosync">Copy for Bingosync.com</button>
+</div>
+
 {{ content }}
-<table>
-    <tr>
-        <td>
-            <button onclick="seed()">Regenerate with Seed</button>
-        </td>
-        <td><input type="text" id="seed" width="50px" /></td>
-    </tr>
-</table>
+
 <script src="/ts/index.js"></script>
