@@ -1,0 +1,5 @@
+{
+  "customizations": {
+    "vscode": {"extensions": ["sissel.shopify-liquid"]}
+  }
+}

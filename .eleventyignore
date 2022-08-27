@@ -1,0 +1,3 @@
+_static
+node_modules
+source/js/*.ts

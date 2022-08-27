@@ -1,0 +1,15 @@
+{
+  "extends": "./node_modules/gts/tsconfig-google.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "rootDir": ".",
+    "useUnknownInCatchVariables": false,
+    "declaration": false,
+    "lib": ["dom"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "target": "es2017"
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["**/*.test.ts"]
+}
