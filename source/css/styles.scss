@@ -26,15 +26,39 @@ body {
   background-color: black;
 }
 
-td,
-tr {
-  text-align: center;
-  font-weight: bold;
-  opacity: 0.75;
-  text-shadow: 2px 2px #000000;
-}
+#bingo-table {
+  width: 100%;
+  border-collapse: collapse;
+  display: block;
 
-td {
-  width: 100px;
-  height: 100px;
+  td,
+  tr {
+    text-align: center;
+    font-weight: bold;
+    opacity: 0.75;
+    text-shadow: 2px 2px #000000;
+    line-height: 100%;
+  }
+
+  td {
+    display: inline-flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 20%;
+    aspect-ratio: 1 / 1;
+    border: 1px none white;
+    border-top-style: solid;
+    border-left-style: solid;
+    overflow: hidden;
+    padding: 10px;
+    cursor: pointer;
+
+    &:last-child {
+      border-right-style: solid;
+    }
+  }
+
+  tr:last-child td {
+    border-bottom-style: solid;
+  }
 }
