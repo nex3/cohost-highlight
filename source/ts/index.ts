@@ -1,4 +1,6 @@
-import {Bingo} from './bingo';
+import {Chance} from 'chance';
+
+import {BingoBoard} from './bingo-board';
 import {Option} from './options';
 import {options as ds3} from './config/ds3';
 import {options as sekiro} from './config/sekiro';
@@ -6,11 +8,6 @@ import {options as sekiro} from './config/sekiro';
 const configs: Record<string, Option> = {sekiro, ds3};
 
 const options = configs[document.body.dataset.bingo as string];
-let bingo = new Bingo(options);
-function main() {
-  bingo.generate();
-  bingo.writeToBoard();
-}
 
 declare global {
   interface Window {
@@ -21,8 +18,7 @@ declare global {
 window.seed = () => {
   const field = document.getElementById('seed') as HTMLInputElement;
   const text = field.value;
-  bingo = new Bingo(options, parseInt(text));
-  main();
+  new BingoBoard(options, new Chance.Chance(parseInt(text))).writeToBoard();
 };
 
-document.addEventListener('DOMContentLoaded', main, false);
+document.addEventListener('DOMContentLoaded', () => new BingoBoard(options).writeToBoard(), false);
