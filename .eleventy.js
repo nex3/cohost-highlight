@@ -18,5 +18,6 @@ module.exports = function (config) {
     dir: {
       input: 'source',
     },
+    pathPrefix: process.env.BINGO_URL_PREFIX,
   };
 };
