@@ -3,49 +3,52 @@ layout: layout
 ---
 
 <table id="bingo-table">
-    <tr id="r1">
-        <td id="r1c1"></td>
-        <td id="r1c2"></td>
-        <td id="r1c3"></td>
-        <td id="r1c4"></td>
-        <td id="r1c5"></td>
-    </tr>
-    <tr id="r2">
-        <td id="r2c1"></td>
-        <td id="r2c2"></td>
-        <td id="r2c3"></td>
-        <td id="r2c4"></td>
-        <td id="r2c5"></td>
-    </tr>
-    <tr id="r3">
-        <td id="r3c1"></td>
-        <td id="r3c2"></td>
-        <td id="r3c3"></td>
-        <td id="r3c4"></td>
-        <td id="r3c5"></td>
-    </tr>
-    <tr id="r4">
-        <td id="r4c1"></td>
-        <td id="r4c2"></td>
-        <td id="r4c3"></td>
-        <td id="r4c4"></td>
-        <td id="r4c5"></td>
-    </tr>
-    <tr id="r5">
-        <td id="r5c1"></td>
-        <td id="r5c2"></td>
-        <td id="r5c3"></td>
-        <td id="r5c4"></td>
-        <td id="r5c5"></td>
-    </tr>
+  <tr id="r1">
+    <td id="r1c1"></td>
+    <td id="r1c2"></td>
+    <td id="r1c3"></td>
+    <td id="r1c4"></td>
+    <td id="r1c5"></td>
+  </tr>
+  <tr id="r2">
+    <td id="r2c1"></td>
+    <td id="r2c2"></td>
+    <td id="r2c3"></td>
+    <td id="r2c4"></td>
+    <td id="r2c5"></td>
+  </tr>
+  <tr id="r3">
+    <td id="r3c1"></td>
+    <td id="r3c2"></td>
+    <td id="r3c3"></td>
+    <td id="r3c4"></td>
+    <td id="r3c5"></td>
+  </tr>
+  <tr id="r4">
+    <td id="r4c1"></td>
+    <td id="r4c2"></td>
+    <td id="r4c3"></td>
+    <td id="r4c4"></td>
+    <td id="r4c5"></td>
+  </tr>
+  <tr id="r5">
+    <td id="r5c1"></td>
+    <td id="r5c2"></td>
+    <td id="r5c3"></td>
+    <td id="r5c4"></td>
+    <td id="r5c5"></td>
+  </tr>
 </table>
+
+<div id="buttons">
+  <form id="seed" action="#">
+    <button>Regenerate with Seed</button>
+    <input width="50px" />
+  </form>
+
+  <button type="button" id="bingosync">Copy for Bingosync.com</button>
+</div>
+
 {{ content }}
-<table>
-    <tr>
-        <td>
-            <button onclick="seed()">Regenerate with Seed</button>
-        </td>
-        <td><input type="text" id="seed" width="50px" /></td>
-    </tr>
-</table>
-<script src="/ts/index.js"></script>
+
+<script src="{{ '/ts/index.js' | url}}"></script>

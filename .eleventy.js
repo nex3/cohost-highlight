@@ -1,20 +1,23 @@
 const cacheBuster = require('@mightyplow/eleventy-plugin-cache-buster');
 
 module.exports = function (config) {
-    config.setUseGitIgnore(false);
+  config.setUseGitIgnore(false);
 
-    config.addPassthroughCopy({ "source/images/*": "/images" });
+  config.addPassthroughCopy({'source/images/*': '/images'});
 
-    if (process.env.NODE_ENV !== "dev") {
-      config.addPlugin(cacheBuster({
+  if (process.env.NODE_ENV !== 'dev') {
+    config.addPlugin(
+      cacheBuster({
         createResourceHash: () => Date.now(),
-      }));
-    }
+      })
+    );
+  }
 
-    return {
-        templateFormats: ["md", "html", "js", "js.map", "css"],
-        dir: {
-            input: "source",
-        },
-    };
+  return {
+    templateFormats: ['md', 'html', 'js', 'js.map', 'css'],
+    dir: {
+      input: 'source',
+    },
+    pathPrefix: process.env.BINGO_URL_PREFIX,
+  };
 };

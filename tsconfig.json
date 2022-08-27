@@ -5,6 +5,8 @@
     "rootDir": ".",
     "useUnknownInCatchVariables": false,
     "declaration": false,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "lib": ["dom"],
     "module": "esnext",
     "moduleResolution": "node",
