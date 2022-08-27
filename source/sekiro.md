@@ -1,6 +1,7 @@
 ---
 layout: bingo
 bingo: sekiro
+title: Sekiro bingo generator
 ---
 
 Some notes on specific bingo tiles:
