@@ -1,0 +1,8 @@
+node_modules
+_site
+_static
+source/ts/*.js
+source/css/*.css
+build
+/package-lock.json
+**.js.map

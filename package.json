@@ -1,0 +1,48 @@
+{
+  "name": "bingo",
+  "scripts": {
+    "dev": "NODE_ENV=dev npm-run-all -p watch:*",
+    "build": "npm-run-all clean-build build:webpack build:11ty -p minify:*",
+    "fix": "npm-run-all fix:gts fix:prettier",
+    "fix:gts": "gts fix",
+    "fix:prettier": "prettier -w **/*.md **/*.html **/*.scss",
+    "watch:webpack": "rm -f source/ts/index.js && webpack --watch --mode=development",
+    "watch:11ty": "eleventy --serve",
+    "clean-build": "rimraf build",
+    "build:webpack": "rm -f source/ts/index.js && webpack",
+    "build:11ty": "eleventy --output=build",
+    "minify:html": "html-minifier --input-dir build --output-dir build --file-ext html --remove-comments --collapse-whitespace",
+    "minify:js": "terser build/ts/index.js -m --toplevel -o build/ts/index.js",
+    "lint": "npm-run-all lint:gts lint:tsc",
+    "lint:gts": "gts lint",
+    "lint:tsc": "tsc --noEmit",
+    "clean": "gts clean"
+  },
+  "author": "DistractionCrab, Natalie Weizenbaum",
+  "license": "MIT",
+  "devDependencies": {
+    "@11ty/eleventy": "^1.0.0",
+    "@11ty/eleventy-img": "^1.1.0",
+    "@mightyplow/eleventy-plugin-cache-buster": "^1.1.3",
+    "@types/chance": "^1.1.3",
+    "@types/node": "^14.11.2",
+    "browserslist": "^4.16.3",
+    "chokidar-cli": "^3.0.0",
+    "cssnano": "^5",
+    "file-loader": "^6.2.0",
+    "gts": "^4.0.0",
+    "html-minifier": "^4.0.0",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2",
+    "sass": "^1.54.1",
+    "sass-loader": "^13.0.2",
+    "terser": "^5.6.0",
+    "ts-loader": "^9.3.1",
+    "typescript": "^4.0.3",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "dependencies": {
+    "chance": "^1.1.8"
+  }
+}
