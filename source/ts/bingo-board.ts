@@ -1,4 +1,5 @@
 import {Chance} from 'chance';
+import textFit from 'textfit';
 
 import {TileState} from './tile-state';
 import {Option} from './options';
@@ -24,14 +25,17 @@ export class BingoBoard {
 
   /// Writes the contents of `tiles` to the `#bingo-table` table. Must be called after `generate()`.
   writeToBoard() {
-    const table = document.getElementById('bingo-table') as HTMLTableElement;
-    for (let i = 0; i < 5; ++i) {
-      const row = table.rows[i];
-      for (let k = 0; k < 5; ++k) {
-        const col = row.cells[k];
-        col.innerText = this.tiles[i + 5 * k].text;
-      }
+    const tds = Array.from(document.querySelectorAll('#bingo-table td')) as HTMLTableCellElement[];
+    for (const [i, td] of tds.entries()) {
+      td.innerText = this.tiles[i].text;
     }
+
+    for (const td of tds) {
+      textFit(td, {maxFontSize: 20});
+      const span = td.firstChild as HTMLSpanElement;
+      span.style.lineHeight = span.style.fontSize;
+    }
+
     this.addListeners();
   }
 
