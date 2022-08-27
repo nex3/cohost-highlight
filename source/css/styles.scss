@@ -35,7 +35,6 @@ body {
   tr {
     text-align: center;
     font-weight: bold;
-    opacity: 0.75;
     text-shadow: 2px 2px #000000;
     line-height: 100%;
   }
@@ -46,7 +45,7 @@ body {
     flex-direction: column;
     width: 20%;
     aspect-ratio: 1 / 1;
-    border: 1px none white;
+    border: 1px none #ffffffa0;
     border-top-style: solid;
     border-left-style: solid;
     overflow: hidden;
@@ -59,12 +58,12 @@ body {
     }
 
     &[data-state='yes'] {
-      background-color: green;
+      background-color: #00ff0090;
     }
 
     &[data-state='no'] {
-      $stripe1: red;
-      $stripe2: rgb(255 0 0 / 0.9);
+      $stripe1: #ff0000a0;
+      $stripe2: #ff000090;
       $width: 1vw;
       background: repeating-linear-gradient(
         45deg,
@@ -73,6 +72,10 @@ body {
         $stripe2 $width,
         $stripe2 $width * 2
       );
+    }
+
+    &:not(:hover) > span {
+      opacity: 0.75;
     }
   }
 
