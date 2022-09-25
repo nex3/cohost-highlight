@@ -444,8 +444,8 @@ const challenge = S([
   // Since the randomizer default doesn't include headless in the pool with other minibosses, we
   // consider them challenge options rather than an exploration options.
   F('Kill {0} Headless', O([1, 2, 3, 4, 5])),
-  'Go from Bodhisattva Valley idol to Main Hall idol without resting',
-  F('Get {0} deathblows without resting', R(15, 30)),
+  'Go from Main Hall idol to Bodhisattva Valley idol without resting',
+  F('Get {0} deathblows without resting', R(30, 50)),
   F(
     'Kill {0}',
     S([
