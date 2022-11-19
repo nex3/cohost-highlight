@@ -14,9 +14,6 @@ concurrency:
   group: "pages"
   cancel-in-progress: true
 
-env:
-  BINGO_URL_PREFIX: bingo
-
 jobs:
   deploy:
     environment:
