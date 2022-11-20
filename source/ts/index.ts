@@ -1,8 +1,6 @@
-import Prism from 'prismjs';
+import hljs from 'highlightjs';
 import {MDCTextField} from '@material/textfield';
 import {MDCSelect} from '@material/select';
-
-Prism.manual = true;
 
 function debounce<T extends Function>(fn: T, wait = 200): T {
     let timeout = setTimeout(() => {}, 0);
@@ -20,7 +18,7 @@ const output = document.querySelector("#output") as HTMLElement;
 const outputText = output.querySelector("code") as HTMLElement;
 inputText.listen('input', debounce(e => {
     const source = (e.target as HTMLInputElement).value;
-    outputText.innerHTML = Prism.highlight(source, Prism.languages.css, 'css');
+    outputText.innerHTML = hljs.highlightAuto(source).value;
 }));
 
 const selectTheme = new MDCSelect(document.querySelector('#select-theme')!);

@@ -18,6 +18,8 @@ body {
 .mdc-card {
   padding: 16px;
   max-width: $cols * 1ch + 4ch;
+  display: flex;
+  gap: 16px;
 }
 
 #input,
@@ -31,19 +33,55 @@ body {
 #output .mdc-text-field {
   margin: 0;
   padding: 0;
+  display: inherit;
+  border-radius: 0;
+
+  .mdc-floating-label {
+    color: inherit;
+    opacity: 0.4;
+  }
 
   &__input {
     width: $cols * 1ch;
     height: 288px;
+    color: inherit;
   }
 }
 
-[data-theme=default] {
-  @include meta.load-css("~prismjs/themes/prism");
-}
-
-@each $theme in ["coy" "dark" "funky" "okaidia" "solarizedlight" "tomorrow" "twilight"] {
-  [data-theme=#{$theme}] {
-    @include meta.load-css("~prismjs/themes/prism-#{$theme}");
+@each $theme in [
+"a11y-dark",               "atelier-lakeside.light",     "dracula",            "paraiso-light",
+"a11y-light",              "atelier-plateau-dark",       "far",                "paraiso.light",
+"agate",                   "atelier-plateau.dark",       "foundation",         "pojoaque",
+"androidstudio",           "atelier-plateau-light",      "github",             
+"an-old-hope",             "atelier-plateau.light",      "github-gist",        "purebasic",
+"arduino-light",           "atelier-savanna-dark",       "gml",                "qtcreator_dark",
+"arta",                    "atelier-savanna.dark",       "googlecode",         "qtcreator_light",
+"ascetic",                 "atelier-savanna-light",      "grayscale",          "railscasts",
+"atelier-cave-dark",       "atelier-savanna.light",      "gruvbox-dark",       "rainbow",
+"atelier-cave.dark",       "atelier-seaside-dark",       "gruvbox-light",      "routeros",
+"atelier-cave-light",      "atelier-seaside.dark",       "hopscotch",          "school-book",
+"atelier-cave.light",      "atelier-seaside-light",      "hybrid",             "school_book",
+"atelier-dune-dark",       "atelier-seaside.light",      "idea",             
+"atelier-dune.dark",       "atelier-sulphurpool-dark",   "ir-black",     
+"atelier-dune-light",      "atelier-sulphurpool.dark",   "ir_black",           "shades-of-purple",
+"atelier-dune.light",      "atelier-sulphurpool-light",  "isbl-editor-dark",   "solarized-dark",
+"atelier-estuary-dark",    "atelier-sulphurpool.light",  "isbl-editor-light",  "solarized_dark",
+"atelier-estuary.dark",    "atom-one-dark",              "kimbie.dark",        "solarized-light",
+"atelier-estuary-light",   "atom-one-dark-reasonable",   "kimbie.light",       "solarized_light",
+"atelier-estuary.light",   "atom-one-light",             "lightfair",          "sunburst",
+"atelier-forest-dark",     "brown-paper",                "magula",             "tomorrow",
+"atelier-forest.dark",     "brown_paper",                "mono-blue",          "tomorrow-night-blue",
+"atelier-forest-light",               "monokai",            "tomorrow-night-bright",
+"atelier-forest.light",         "monokai-sublime",    "tomorrow-night",
+"atelier-heath-dark",      "codepen-embed",              "monokai_sublime",    "tomorrow-night-eighties",
+"atelier-heath.dark",      "color-brewer",               "night-owl",          "vs2015",
+"atelier-heath-light",     "darcula",                    "nord",               "vs",
+"atelier-heath.light",     "dark",                       "obsidian",           "xcode",
+"atelier-lakeside-dark",   "darkula",                    "ocean",              "xt256",
+"atelier-lakeside.dark",   "default",                    "paraiso-dark",       "zenburn",
+"atelier-lakeside-light",  "docco",                      "paraiso.dark"
+] {
+  [data-theme="#{$theme}"] {
+    @include meta.load-css("~highlightjs/styles/#{$theme}");
   }
 }

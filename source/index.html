@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ '/css/styles.css' | url }}" />
   </head>
   <body class="mdc-typography">
+    {{foo}}
     <div class="mdc-card" id="input">
       <label class="mdc-text-field mdc-text-field--filled mdc-text-field--textarea">
         <span class="mdc-text-field__ripple"></span>
@@ -64,53 +65,17 @@
                 Default
               </span>
             </li>
-            <li class="mdc-list-item" aria-selected="false" data-value="coy" role="option">
-              <span class="mdc-list-item__ripple"></span>
-              <span class="mdc-list-item__text">
-                Coy
-              </span>
-            </li>
-            <li class="mdc-list-item" aria-selected="false" data-value="dark" role="option">
-              <span class="mdc-list-item__ripple"></span>
-              <span class="mdc-list-item__text">
-                Dark
-              </span>
-            </li>
-            <li class="mdc-list-item" aria-selected="false" data-value="funky" role="option">
-              <span class="mdc-list-item__ripple"></span>
-              <span class="mdc-list-item__text">
-                Funky
-              </span>
-            </li>
-            <li class="mdc-list-item" aria-selected="false" data-value="okaidia" role="option">
-              <span class="mdc-list-item__ripple"></span>
-              <span class="mdc-list-item__text">
-                Okaidia
-              </span>
-            </li>
-            <li class="mdc-list-item" aria-selected="false" data-value="solarizedlight" role="option">
-              <span class="mdc-list-item__ripple"></span>
-              <span class="mdc-list-item__text">
-                Solarized Light
-              </span>
-            </li>
-            <li class="mdc-list-item" aria-selected="false" data-value="tomorrow" role="option">
-              <span class="mdc-list-item__ripple"></span>
-              <span class="mdc-list-item__text">
-                Tomorrow
-              </span>
-            </li>
-            <li class="mdc-list-item" aria-selected="false" data-value="twilight" role="option">
-              <span class="mdc-list-item__ripple"></span>
-              <span class="mdc-list-item__text">
-                Twilight
-              </span>
-            </li>
+            {% for theme in themes %}
+              <li class="mdc-list-item" data-value="{{theme.id}}" role="option">
+                <span class="mdc-list-item__ripple"></span>
+                <span class="mdc-list-item__text">{{theme.name}}</span>
+              </li>
+            {% endfor %}
           </ul>
         </div>
       </div>
       <pre
-        class="mdc-text-field mdc-text-field--filled mdc-text-field--textarea mdc-text-field--disabled language-"
+        class="mdc-text-field mdc-text-field--filled mdc-text-field--textarea mdc-text-field--disabled hljs"
       >
         <span class="mdc-floating-label mdc-floating-label--float-above">Highlighted</span>
         <code
