@@ -12,17 +12,112 @@
       <label class="mdc-text-field mdc-text-field--filled mdc-text-field--textarea">
         <span class="mdc-text-field__ripple"></span>
         <span class="mdc-floating-label mdc-floating-label--float-above">Source Code</span>
-        <textarea class="mdc-text-field__input" rows="8" cols="60" aria-label="Label" spellcheck="false"></textarea>
+        <textarea
+          class="mdc-text-field__input"
+          rows="12"
+          cols="60"
+          aria-label="Label"
+          spellcheck="false"
+        ></textarea>
         <span class="mdc-line-ripple"></span>
       </label>
     </div>
-    <div class="mdc-card mdc-card--outlined" id="output">
-      <label class="mdc-text-field mdc-text-field--filled mdc-text-field--textarea mdc-text-field--disabled">
-        <span class="mdc-text-field__ripple"></span>
+
+    <div class="mdc-card mdc-card--outlined" id="output" data-theme="default">
+      <div class="mdc-select mdc-select--filled demo-width-class" id="select-theme">
+        <div class="mdc-select__anchor"
+             role="button"
+             aria-haspopup="listbox"
+             aria-expanded="false"
+             aria-labelledby="demo-label demo-selected-text">
+          <span class="mdc-select__ripple"></span>
+          <span id="demo-label" class="mdc-floating-label">Theme</span>
+          <span class="mdc-select__selected-text-container">
+            <span id="demo-selected-text" class="mdc-select__selected-text">Default</span>
+          </span>
+          <span class="mdc-select__dropdown-icon">
+            <svg
+                class="mdc-select__dropdown-icon-graphic"
+                viewBox="7 10 10 5" focusable="false">
+              <polygon
+                  class="mdc-select__dropdown-icon-inactive"
+                  stroke="none"
+                  fill-rule="evenodd"
+                  points="7 10 12 15 17 10">
+              </polygon>
+              <polygon
+                  class="mdc-select__dropdown-icon-active"
+                  stroke="none"
+                  fill-rule="evenodd"
+                  points="7 15 12 10 17 15">
+              </polygon>
+            </svg>
+          </span>
+          <span class="mdc-line-ripple"></span>
+        </div>
+      
+        <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
+          <ul class="mdc-list" role="listbox" aria-label="Theme picker listbox">
+            <li class="mdc-list-item mdc-list-item--selected" aria-selected="true" data-value="default" role="option">
+              <span class="mdc-list-item__ripple"></span>
+              <span class="mdc-list-item__text">
+                Default
+              </span>
+            </li>
+            <li class="mdc-list-item" aria-selected="false" data-value="coy" role="option">
+              <span class="mdc-list-item__ripple"></span>
+              <span class="mdc-list-item__text">
+                Coy
+              </span>
+            </li>
+            <li class="mdc-list-item" aria-selected="false" data-value="dark" role="option">
+              <span class="mdc-list-item__ripple"></span>
+              <span class="mdc-list-item__text">
+                Dark
+              </span>
+            </li>
+            <li class="mdc-list-item" aria-selected="false" data-value="funky" role="option">
+              <span class="mdc-list-item__ripple"></span>
+              <span class="mdc-list-item__text">
+                Funky
+              </span>
+            </li>
+            <li class="mdc-list-item" aria-selected="false" data-value="okaidia" role="option">
+              <span class="mdc-list-item__ripple"></span>
+              <span class="mdc-list-item__text">
+                Okaidia
+              </span>
+            </li>
+            <li class="mdc-list-item" aria-selected="false" data-value="solarizedlight" role="option">
+              <span class="mdc-list-item__ripple"></span>
+              <span class="mdc-list-item__text">
+                Solarized Light
+              </span>
+            </li>
+            <li class="mdc-list-item" aria-selected="false" data-value="tomorrow" role="option">
+              <span class="mdc-list-item__ripple"></span>
+              <span class="mdc-list-item__text">
+                Tomorrow
+              </span>
+            </li>
+            <li class="mdc-list-item" aria-selected="false" data-value="twilight" role="option">
+              <span class="mdc-list-item__ripple"></span>
+              <span class="mdc-list-item__text">
+                Twilight
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <pre
+        class="mdc-text-field mdc-text-field--filled mdc-text-field--textarea mdc-text-field--disabled language-"
+      >
         <span class="mdc-floating-label mdc-floating-label--float-above">Highlighted</span>
-        <textarea class="mdc-text-field__input" rows="8" cols="60" aria-label="Label" spellcheck="false" disabled></textarea>
-        <span class="mdc-line-ripple"></span>
-      </label>
+        <code
+          class="mdc-text-field__input"W
+        ></code>
+      </pre>
     </div>
+    <script src="{{ '/ts/index.js' | url }}"></script>
   </body>
 </html>

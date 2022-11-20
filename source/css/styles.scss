@@ -1,5 +1,9 @@
+@use 'sass:meta';
+
 @use '~material-components-web' as mdc;
-@use "~@material/textfield";
+@use '~@material/textfield';
+
+$cols: 60;
 
 body {
   background-color: #fafafa;
@@ -13,16 +17,33 @@ body {
 
 .mdc-card {
   padding: 16px;
-  max-width: 65ch;
+  max-width: $cols * 1ch + 4ch;
 }
 
-#input, #output {
-  textarea {
-    font-family: "Roboto Mono", monospace;
+#input,
+#output {
+  .mdc-text-field__input {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, liberation mono, courier new,
+      monospace;
   }
 }
 
 #output .mdc-text-field {
-  @include textfield.disabled-ink-color(rgb(0 0 0 / 0.6));
-  @include textfield.disabled-fill-color(white);
+  margin: 0;
+  padding: 0;
+
+  &__input {
+    width: $cols * 1ch;
+    height: 288px;
+  }
+}
+
+[data-theme=default] {
+  @include meta.load-css("~prismjs/themes/prism");
+}
+
+@each $theme in ["coy" "dark" "funky" "okaidia" "solarizedlight" "tomorrow" "twilight"] {
+  [data-theme=#{$theme}] {
+    @include meta.load-css("~prismjs/themes/prism-#{$theme}");
+  }
 }
