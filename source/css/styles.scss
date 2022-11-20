@@ -1,98 +1,28 @@
-html {
-  padding: 2%;
-  box-sizing: border-box;
-  font-family: system-ui;
-  line-height: 1.5;
-}
+@use '~material-components-web' as mdc;
+@use "~@material/textfield";
 
 body {
-  max-width: 800px;
-  margin: 0 auto;
-  color: white;
-  background-color: black;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
-}
-
-.active {
-  background-color: green;
-}
-
-.inactive {
-  background-color: black;
-}
-
-#bingo-table {
-  width: 100%;
-  border-collapse: collapse;
-  display: block;
-
-  td,
-  tr {
-    text-align: center;
-    font-weight: bold;
-    text-shadow: 2px 2px #000000;
-    line-height: 100%;
-  }
-
-  td {
-    display: inline-flex;
-    justify-content: center;
-    flex-direction: column;
-    width: 20%;
-    aspect-ratio: 1 / 1;
-    border: 1px none #ffffffa0;
-    border-top-style: solid;
-    border-left-style: solid;
-    overflow: hidden;
-    padding: 10px;
-    cursor: pointer;
-    font-size: 2vw;
-
-    &:last-child {
-      border-right-style: solid;
-    }
-
-    &[data-state='yes'] {
-      background-color: #00ff0090;
-    }
-
-    &[data-state='no'] {
-      $stripe1: #ff0000a0;
-      $stripe2: #ff000090;
-      $width: 1vw;
-      background: repeating-linear-gradient(
-        45deg,
-        $stripe1,
-        $stripe1 $width,
-        $stripe2 $width,
-        $stripe2 $width * 2
-      );
-    }
-
-    &:not(:hover) > span {
-      opacity: 0.75;
-    }
-  }
-
-  tr:last-child td {
-    border-bottom-style: solid;
-  }
-}
-
-#buttons {
+  background-color: #fafafa;
+  color: #000000de;
   display: flex;
-  justify-content: space-evenly;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-  width: 100%;
+  justify-content: center;
+  gap: 16px;
+  margin: 0;
+  padding: 30px;
+}
 
-  > * {
-    margin-left: 1rem;
-    margin-right: 1rem;
+.mdc-card {
+  padding: 16px;
+  max-width: 65ch;
+}
+
+#input, #output {
+  textarea {
+    font-family: "Roboto Mono", monospace;
   }
+}
+
+#output .mdc-text-field {
+  @include textfield.disabled-ink-color(rgb(0 0 0 / 0.6));
+  @include textfield.disabled-fill-color(white);
 }

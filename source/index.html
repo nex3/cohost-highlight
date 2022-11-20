@@ -4,11 +4,25 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cohost Syntax Highlighter</title>
-    <link rel="icon" href="{{ '/images/favicon.svg' | url }}" type="image/svg+xml" />
+    <link rel="icon" href="{{ '/images/favicon.png' | url }}" type="image/svg+xml" />
     <link rel="stylesheet" href="{{ '/css/styles.css' | url }}" />
   </head>
-  <body>
-    <textarea id="input"></textarea>
-    <pre><code id="output"></code></pre>
+  <body class="mdc-typography">
+    <div class="mdc-card" id="input">
+      <label class="mdc-text-field mdc-text-field--filled mdc-text-field--textarea">
+        <span class="mdc-text-field__ripple"></span>
+        <span class="mdc-floating-label mdc-floating-label--float-above">Source Code</span>
+        <textarea class="mdc-text-field__input" rows="8" cols="60" aria-label="Label" spellcheck="false"></textarea>
+        <span class="mdc-line-ripple"></span>
+      </label>
+    </div>
+    <div class="mdc-card mdc-card--outlined" id="output">
+      <label class="mdc-text-field mdc-text-field--filled mdc-text-field--textarea mdc-text-field--disabled">
+        <span class="mdc-text-field__ripple"></span>
+        <span class="mdc-floating-label mdc-floating-label--float-above">Highlighted</span>
+        <textarea class="mdc-text-field__input" rows="8" cols="60" aria-label="Label" spellcheck="false" disabled></textarea>
+        <span class="mdc-line-ripple"></span>
+      </label>
+    </div>
   </body>
 </html>

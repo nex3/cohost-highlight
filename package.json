@@ -32,6 +32,7 @@
     "file-loader": "^6.2.0",
     "gts": "^4.0.0",
     "html-minifier": "^4.0.0",
+    "material-components-web": "^14.0.0",
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",
     "sass": "^1.54.1",
@@ -41,5 +42,8 @@
     "typescript": "^4.0.3",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0"
+  },
+  "dependencies": {
+    "@material/textfield": "^14.0.0"
   }
 }
