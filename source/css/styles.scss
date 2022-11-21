@@ -13,6 +13,9 @@ body {
   gap: 16px;
   margin: 0;
   padding: 30px;
+  width: calc(64ch * 2 + 16px);
+  margin: 0 auto;
+  flex-wrap: wrap;
 }
 
 .mdc-card {
