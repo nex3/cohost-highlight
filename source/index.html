@@ -9,18 +9,18 @@
   </head>
   <body class="mdc-typography">
     <div class="mdc-card" id="input">
-      <div class="mdc-select mdc-select--filled demo-width-class" id="select-language">
+      <div class="mdc-select mdc-select--filled" id="select-language">
         <div
           class="mdc-select__anchor"
           role="button"
           aria-haspopup="listbox"
           aria-expanded="false"
-          aria-labelledby="demo-label demo-selected-text"
+          aria-labelledby="language-label language-selected"
         >
           <span class="mdc-select__ripple"></span>
-          <span id="demo-label" class="mdc-floating-label">Language</span>
+          <span id="language-label" class="mdc-floating-label">Language</span>
           <span class="mdc-select__selected-text-container">
-            <span id="demo-selected-text" class="mdc-select__selected-text">Auto</span>
+            <span id="language-selected" class="mdc-select__selected-text">Auto</span>
           </span>
           <span class="mdc-select__dropdown-icon">
             <svg class="mdc-select__dropdown-icon-graphic" viewBox="7 10 10 5" focusable="false">
@@ -75,7 +75,7 @@
       </label>
     </div>
 
-    <div class="mdc-card mdc-card--outlined" id="output" data-theme="default">
+    <div class="mdc-card mdc-card--outlined" id="output" data-theme="{{defaultTheme.id}}">
       <div class="row">
         <label class="mdc-text-field mdc-text-field--outlined" id="title">
           <span class="mdc-notched-outline">
@@ -88,18 +88,18 @@
           <input type="text" class="mdc-text-field__input" aria-labelledby="title-label" />
         </label>
 
-        <div class="mdc-select mdc-select--filled demo-width-class" id="select-theme">
+        <div class="mdc-select mdc-select--filled" id="select-theme">
           <div
             class="mdc-select__anchor"
             role="button"
             aria-haspopup="listbox"
             aria-expanded="false"
-            aria-labelledby="demo-label demo-selected-text"
+            aria-labelledby="theme-label theme-selected"
           >
             <span class="mdc-select__ripple"></span>
-            <span id="demo-label" class="mdc-floating-label">Theme</span>
+            <span id="theme-label" class="mdc-floating-label">Theme</span>
             <span class="mdc-select__selected-text-container">
-              <span id="demo-selected-text" class="mdc-select__selected-text">Default</span>
+              <span id="theme-selected" class="mdc-select__selected-text">{{defaultTheme.name}}</span>
             </span>
             <span class="mdc-select__dropdown-icon">
               <svg class="mdc-select__dropdown-icon-graphic" viewBox="7 10 10 5" focusable="false">
@@ -121,17 +121,10 @@
           </div>
           <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
             <ul class="mdc-list" role="listbox" aria-label="Theme picker listbox">
-              <li
-                class="mdc-list-item mdc-list-item--selected"
-                aria-selected="true"
-                data-value="default"
-                role="option"
-              >
-                <span class="mdc-list-item__ripple"></span>
-                <span class="mdc-list-item__text">Default</span>
-              </li>
               {% for theme in themes %}
-              <li class="mdc-list-item" data-value="{{theme.id}}" role="option">
+              <li class="mdc-list-item {% if theme.id == defaultTheme.id %}mdc-list-item--selected{% endif %}"
+              aria-selected="{% if theme.id == defaultTheme.id %}true{% endif %}"
+              data-value="{{theme.id}}" role="option">
                 <span class="mdc-list-item__ripple"></span>
                 <span class="mdc-list-item__text">{{theme.name}}</span>
               </li>
