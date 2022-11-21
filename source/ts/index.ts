@@ -33,7 +33,10 @@ function highlight() {
   outputText.innerHTML += '<span id="baseline"></span>';
 }
 
-selectLanguage.listen('MDCSelect:change', highlight);
+selectLanguage.listen('MDCSelect:change', () => {
+  window.localStorage.highlightLanguage = selectLanguage.value;
+  highlight();
+});
 inputText.listen('input', debounce(highlight));
 
 const title = new MDCTextField(document.querySelector('#title')!);
@@ -44,12 +47,14 @@ title.listen('input', () => {
 
 const selectTheme = new MDCSelect(document.querySelector('#select-theme')!);
 selectTheme.listen('MDCSelect:change', () => {
+  window.localStorage.highlightTheme = selectTheme.value;
   output.dataset.theme = selectTheme.value;
 });
 
 const attributionSwitch = new MDCSwitch(document.querySelector('#attribution-switch')!);
 const attribution = document.querySelector('#attribution') as HTMLElement;
 attributionSwitch.listen('click', () => {
+  window.localStorage.highlightAttribution = attributionSwitch.selected;
   if (attributionSwitch.selected) {
     attribution.style.removeProperty('display');
   } else {
@@ -129,3 +134,17 @@ copyHtml.listen('click', async () => {
   await navigator.clipboard.writeText(html);
   snackbar.open();
 });
+
+// Local storage
+
+if (window.localStorage.highlightLanguage) {
+  selectLanguage.setValue(window.localStorage.highlightLanguage);
+}
+
+if (window.localStorage.highlightTheme) {
+  selectTheme.setValue(window.localStorage.highlightTheme);
+}
+
+if (window.localStorage.highlightAttribution === 'false') {
+  attributionSwitch.emit('click', {});
+}
