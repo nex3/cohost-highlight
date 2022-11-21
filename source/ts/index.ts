@@ -70,6 +70,19 @@ function getStyleDiff(baseline: Set<CSSStyleRule>, element: HTMLElement): string
   return decls.join(';');
 }
 
+function inlinifyNodes(baseline: Set<CSSStyleRule>, node: ChildNode): string {
+  if (node instanceof Text) return escapeHtml(node.nodeValue ?? '');
+
+  const el = node as HTMLElement;
+  if (el.id === 'baseline') return '';
+
+  let html = el instanceof HTMLSpanElement ? `<span style="${getStyleDiff(baseline, el)}">` : '';
+  for (const child of Array.from(el.childNodes)) {
+    html += inlinifyNodes(baseline, child);
+  }
+  return html + '</span>';
+}
+
 const copyHtml = new MDCRipple(document.querySelector('#copy-html')!);
 copyHtml.listen('click', async () => {
   const pre = window.getComputedStyle(outputPre);
@@ -90,18 +103,8 @@ copyHtml.listen('click', async () => {
 
   html +=
     '<code style="padding:0 16px;display:block;margin-bottom:9px;' +
-    `margin-top:${title.value.length === 0 ? '9px' : '23px'}">`;
-  for (const child of Array.from(outputText.childNodes)) {
-    if (child instanceof Text) {
-      html += child.nodeValue;
-      continue;
-    }
-
-    const span = child as HTMLSpanElement;
-    if (span.id === 'baseline') continue;
-    html +=
-      `<span style="${getStyleDiff(baseline, span)}">` + `${escapeHtml(span.innerText)}</span>`;
-  }
+    `margin-top:${title.value.length === 0 ? '9px' : '23px'}">` +
+    `${inlinifyNodes(baseline, outputText)}</code>`;
   await navigator.clipboard.writeText(html + '</code></pre>');
   // this._snackBar.open("HTML copied!", undefined, { duration: 1000 });
 });
