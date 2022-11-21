@@ -61,7 +61,7 @@
         </div>
       </div>
 
-      <label class="mdc-text-field mdc-text-field--filled mdc-text-field--textarea">
+      <label class="mdc-text-field mdc-text-field--filled mdc-text-field--textarea code">
         <span class="mdc-text-field__ripple"></span>
         <span class="mdc-floating-label mdc-floating-label--float-above">Source Code</span>
         <textarea
@@ -76,59 +76,73 @@
     </div>
 
     <div class="mdc-card mdc-card--outlined" id="output" data-theme="default">
-      <div class="mdc-select mdc-select--filled demo-width-class" id="select-theme">
-        <div
-          class="mdc-select__anchor"
-          role="button"
-          aria-haspopup="listbox"
-          aria-expanded="false"
-          aria-labelledby="demo-label demo-selected-text"
-        >
-          <span class="mdc-select__ripple"></span>
-          <span id="demo-label" class="mdc-floating-label">Theme</span>
-          <span class="mdc-select__selected-text-container">
-            <span id="demo-selected-text" class="mdc-select__selected-text">Default</span>
+      <div class="row">
+        <label class="mdc-text-field mdc-text-field--outlined" id="title">
+          <span class="mdc-notched-outline">
+            <span class="mdc-notched-outline__leading"></span>
+            <span class="mdc-notched-outline__notch">
+              <span class="mdc-floating-label" id="title-label">Title</span>
+            </span>
+            <span class="mdc-notched-outline__trailing"></span>
           </span>
-          <span class="mdc-select__dropdown-icon">
-            <svg class="mdc-select__dropdown-icon-graphic" viewBox="7 10 10 5" focusable="false">
-              <polygon
-                class="mdc-select__dropdown-icon-inactive"
-                stroke="none"
-                fill-rule="evenodd"
-                points="7 10 12 15 17 10"
-              ></polygon>
-              <polygon
-                class="mdc-select__dropdown-icon-active"
-                stroke="none"
-                fill-rule="evenodd"
-                points="7 15 12 10 17 15"
-              ></polygon>
-            </svg>
-          </span>
-          <span class="mdc-line-ripple"></span>
-        </div>
-        <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
-          <ul class="mdc-list" role="listbox" aria-label="Theme picker listbox">
-            <li
-              class="mdc-list-item mdc-list-item--selected"
-              aria-selected="true"
-              data-value="default"
-              role="option"
-            >
-              <span class="mdc-list-item__ripple"></span>
-              <span class="mdc-list-item__text"> Default </span>
-            </li>
-            {% for theme in themes %}
-            <li class="mdc-list-item" data-value="{{theme.id}}" role="option">
-              <span class="mdc-list-item__ripple"></span>
-              <span class="mdc-list-item__text">{{theme.name}}</span>
-            </li>
-            {% endfor %}
-          </ul>
+          <input type="text" class="mdc-text-field__input" aria-labelledby="title-label" />
+        </label>
+
+        <div class="mdc-select mdc-select--filled demo-width-class" id="select-theme">
+          <div
+            class="mdc-select__anchor"
+            role="button"
+            aria-haspopup="listbox"
+            aria-expanded="false"
+            aria-labelledby="demo-label demo-selected-text"
+          >
+            <span class="mdc-select__ripple"></span>
+            <span id="demo-label" class="mdc-floating-label">Theme</span>
+            <span class="mdc-select__selected-text-container">
+              <span id="demo-selected-text" class="mdc-select__selected-text">Default</span>
+            </span>
+            <span class="mdc-select__dropdown-icon">
+              <svg class="mdc-select__dropdown-icon-graphic" viewBox="7 10 10 5" focusable="false">
+                <polygon
+                  class="mdc-select__dropdown-icon-inactive"
+                  stroke="none"
+                  fill-rule="evenodd"
+                  points="7 10 12 15 17 10"
+                ></polygon>
+                <polygon
+                  class="mdc-select__dropdown-icon-active"
+                  stroke="none"
+                  fill-rule="evenodd"
+                  points="7 15 12 10 17 15"
+                ></polygon>
+              </svg>
+            </span>
+            <span class="mdc-line-ripple"></span>
+          </div>
+          <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
+            <ul class="mdc-list" role="listbox" aria-label="Theme picker listbox">
+              <li
+                class="mdc-list-item mdc-list-item--selected"
+                aria-selected="true"
+                data-value="default"
+                role="option"
+              >
+                <span class="mdc-list-item__ripple"></span>
+                <span class="mdc-list-item__text">Default</span>
+              </li>
+              {% for theme in themes %}
+              <li class="mdc-list-item" data-value="{{theme.id}}" role="option">
+                <span class="mdc-list-item__ripple"></span>
+                <span class="mdc-list-item__text">{{theme.name}}</span>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
         </div>
       </div>
+
       <pre
-        class="mdc-text-field mdc-text-field--filled mdc-text-field--textarea mdc-text-field--disabled hljs"
+        class="mdc-text-field mdc-text-field--filled mdc-text-field--textarea mdc-text-field--disabled code hljs"
       >
         <span class="mdc-floating-label mdc-floating-label--float-above">Highlighted</span>
         <code

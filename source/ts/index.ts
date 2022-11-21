@@ -3,6 +3,7 @@ import hljs from 'highlightjs';
 import {MDCTextField} from '@material/textfield';
 import {MDCSelect} from '@material/select';
 import {MDCRipple} from '@material/ripple';
+import escapeHTML from 'escape-html';
 
 function debounce<T extends Function>(fn: T, wait = 200): T {
   let timeout = setTimeout(() => {}, 0);
@@ -32,6 +33,12 @@ function highlight() {
 
 selectLanguage.listen('MDCSelect:change', highlight);
 inputText.listen('input', debounce(highlight));
+
+const title = new MDCTextField(document.querySelector('#title')!);
+const label = outputPre.querySelector('.mdc-floating-label') as HTMLElement;
+title.listen('input', () => {
+  label.innerText = title.value.length === 0 ? 'Highlighted' : title.value;
+});
 
 const selectTheme = new MDCSelect(document.querySelector('#select-theme')!);
 selectTheme.listen('MDCSelect:change', () => {
@@ -67,26 +74,34 @@ const copyHtml = new MDCRipple(document.querySelector('#copy-html')!);
 copyHtml.listen('click', async () => {
   const pre = window.getComputedStyle(outputPre);
   const baseline = getMatchedCSSRules(document.querySelector('#baseline')!);
-  const html =
-    `<pre style="
-        background-color: ${pre.backgroundColor};
-        color: ${pre.color};
-    ">` +
-    Array.from(outputText.childNodes)
-      .map(child => {
-        if (child instanceof Text) return child.nodeValue;
-        const span = child as HTMLSpanElement;
-        if (span.id === 'baseline') return '';
-        return (
-          '<span style="' +
-          getStyleDiff(baseline, span) +
-          '">' +
-          escapeHtml(span.innerText) +
-          '</span>'
-        );
-      })
-      .join('') +
-    '</pre>';
-  await navigator.clipboard.writeText(html);
+  let html =
+    `<pre style="background-color:${pre.backgroundColor};color:${pre.color};position:relative;` +
+    'padding:0">';
+
+  if (title.value.length > 0) {
+    html +=
+      '<div style="opacity:.8;transform:translateY(-10.25px)scale(0.75);cursor:default;top:19px;' +
+      'left:16px;pointer-events:none;position:absolute;transform-origin:left top;' +
+      'line-height:1.15rem;fony-family:Atkinson Hyperlegible,ui-sans-serif,system-ui,' +
+      '-apple-system,BlinkMacSystemFont,segoe ui,Roboto,helvetica neue,Arial,noto sans,' +
+      'sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol,noto color emoji">' +
+      `${escapeHTML(title.value)}</div>`;
+  }
+
+  html +=
+    '<code style="padding:0 16px;display:block;margin-bottom:9px;' +
+    `margin-top:${title.value.length === 0 ? '9px' : '23px'}">`;
+  for (const child of Array.from(outputText.childNodes)) {
+    if (child instanceof Text) {
+      html += child.nodeValue;
+      continue;
+    }
+
+    const span = child as HTMLSpanElement;
+    if (span.id === 'baseline') continue;
+    html +=
+      `<span style="${getStyleDiff(baseline, span)}">` + `${escapeHtml(span.innerText)}</span>`;
+  }
+  await navigator.clipboard.writeText(html + '</code></pre>');
   // this._snackBar.open("HTML copied!", undefined, { duration: 1000 });
 });

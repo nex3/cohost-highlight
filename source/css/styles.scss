@@ -22,15 +22,25 @@ body {
   gap: 16px;
 }
 
+.row {
+  display: flex;
+  gap: 16px;
+}
+
+#title,
+#select-theme {
+  width: 100%;
+}
+
 #input,
 #output {
-  .mdc-text-field__input {
+  .code .mdc-text-field__input {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, liberation mono, courier new,
       monospace;
   }
 }
 
-#output .mdc-text-field {
+#output .code {
   margin: 0;
   padding: 0;
   display: inherit;
@@ -41,7 +51,7 @@ body {
     opacity: 0.8;
   }
 
-  &__input {
+  .mdc-text-field__input {
     width: $cols * 1ch;
     height: 288px;
     color: inherit;
