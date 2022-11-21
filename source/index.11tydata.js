@@ -1,8 +1,10 @@
 const fs = require("fs");
+const hljs = require("highlightjs");
 const titleize = require("titleize");
 
 module.exports = {
 eleventyComputed: {
+    languages: hljs.listLanguages,
     themes: () => {
         const ids = Array.from(fs.readdirSync("node_modules/highlightjs/styles")
             .filter(path => path.endsWith('.css'))
