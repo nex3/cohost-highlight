@@ -38,39 +38,55 @@ selectTheme.listen('MDCSelect:change', () => {
   output.dataset.theme = selectTheme.value;
 });
 
-const allCss = Array.from(document.styleSheets).map(stylesheet => Array.from(stylesheet.cssRules ?? []).filter(rule => rule instanceof CSSStyleRule)  as CSSStyleRule[]).flat();
+const allCss = Array.from(document.styleSheets)
+  .map(
+    stylesheet =>
+      Array.from(stylesheet.cssRules ?? []).filter(
+        rule => rule instanceof CSSStyleRule
+      ) as CSSStyleRule[]
+  )
+  .flat();
 function getMatchedCSSRules(element: HTMLElement): Set<CSSStyleRule> {
-    return new Set(allCss.filter(rule => element.matches(rule.selectorText)));
+  return new Set(allCss.filter(rule => element.matches(rule.selectorText)));
 }
 
 function getStyleDiff(baseline: Set<CSSStyleRule>, element: HTMLElement): string {
-    const decls: string[] = [];
-    for (const rule of getMatchedCSSRules(element)) {
-        if (baseline.has(rule)) continue;
-        for (let i =0 ; i < rule.style.length; i ++) {
-            const name = rule.style[i];
-            const value = rule.style.getPropertyValue(name);
-            decls.push(`${name}: ${value}`);
-        }
+  const decls: string[] = [];
+  for (const rule of getMatchedCSSRules(element)) {
+    if (baseline.has(rule)) continue;
+    for (let i = 0; i < rule.style.length; i++) {
+      const name = rule.style[i];
+      const value = rule.style.getPropertyValue(name);
+      decls.push(`${name}: ${value}`);
     }
-    return decls.join(';');
+  }
+  return decls.join(';');
 }
 
 const copyHtml = new MDCRipple(document.querySelector('#copy-html')!);
 copyHtml.listen('click', async () => {
-    const pre = window.getComputedStyle(outputPre);
-    const baseline = getMatchedCSSRules(document.querySelector("#baseline")!);
-    const html = `<pre style="
+  const pre = window.getComputedStyle(outputPre);
+  const baseline = getMatchedCSSRules(document.querySelector('#baseline')!);
+  const html =
+    `<pre style="
         background-color: ${pre.backgroundColor};
         color: ${pre.color};
-    ">` + 
-    Array.from(outputText.childNodes).map(child => {
+    ">` +
+    Array.from(outputText.childNodes)
+      .map(child => {
         if (child instanceof Text) return child.nodeValue;
         const span = child as HTMLSpanElement;
         if (span.id === 'baseline') return '';
-        return '<span style="' + getStyleDiff(baseline, span) + '">' + escapeHtml(span.innerText) + '</span>';
-    }).join('') + '</pre>';
-    await navigator.clipboard.writeText(html);
-    // this._snackBar.open("HTML copied!", undefined, { duration: 1000 });
-})
-
+        return (
+          '<span style="' +
+          getStyleDiff(baseline, span) +
+          '">' +
+          escapeHtml(span.innerText) +
+          '</span>'
+        );
+      })
+      .join('') +
+    '</pre>';
+  await navigator.clipboard.writeText(html);
+  // this._snackBar.open("HTML copied!", undefined, { duration: 1000 });
+});
