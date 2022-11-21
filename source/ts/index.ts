@@ -3,6 +3,7 @@ import hljs from 'highlightjs';
 import {MDCTextField} from '@material/textfield';
 import {MDCSelect} from '@material/select';
 import {MDCRipple} from '@material/ripple';
+import {MDCSnackbar} from '@material/snackbar';
 import {MDCSwitch} from '@material/switch';
 import escapeHTML from 'escape-html';
 
@@ -94,6 +95,7 @@ function inlinifyNodes(baseline: Set<CSSStyleRule>, node: ChildNode): string {
   return html + '</span>';
 }
 
+const snackbar = new MDCSnackbar(document.querySelector('.mdc-snackbar')!);
 const copyHtml = new MDCRipple(document.querySelector('#copy-html')!);
 copyHtml.listen('click', async () => {
   const pre = window.getComputedStyle(outputPre);
@@ -125,5 +127,5 @@ copyHtml.listen('click', async () => {
   }
 
   await navigator.clipboard.writeText(html);
-  // this._snackBar.open("HTML copied!", undefined, { duration: 1000 });
+  snackbar.open();
 });
