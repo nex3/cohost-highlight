@@ -51,6 +51,7 @@
     "@material/switch": "^14.0.0",
     "@material/textfield": "^14.0.0",
     "@types/escape-html": "^1.0.2",
+    "colorjs.io": "^0.4.2",
     "escape-html": "^1.0.3",
     "highlightjs": "^9.16.2",
     "titleize": "^2.0.0"

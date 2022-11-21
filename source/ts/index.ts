@@ -1,3 +1,4 @@
+import Color from 'colorjs.io';
 import escapeHtml from 'escape-html';
 import hljs from 'highlightjs';
 import {MDCTextField} from '@material/textfield';
@@ -22,20 +23,48 @@ const selectLanguage = new MDCSelect(document.querySelector('#select-language')!
 const output = document.querySelector('#output') as HTMLElement;
 const outputPre = output.querySelector('pre') as HTMLElement;
 const outputText = output.querySelector('code') as HTMLElement;
+const crtSwitch = new MDCSwitch(document.querySelector('#crt-switch')!);
+
+function glowify(): void {
+  for (const span of Array.from(outputPre.querySelectorAll('span'))) {
+    const style = window.getComputedStyle(span);
+    const color = new Color(style.color);
+    color.lch.l *= 1.2;
+    span.style.textShadow = `0 0 2px ${color.toString({format: 'hex'})}`;
+  }
+}
+
+function deglowify(): void {
+  for (const span of Array.from(outputPre.querySelectorAll('span'))) {
+    span.style.textShadow = '';
+  }
+}
 
 function highlight() {
   const source = inputText.value;
-  outputText.innerHTML = (
-    selectLanguage.value === 'auto'
+  outputText.innerHTML =
+    '<span>' +
+    (selectLanguage.value === 'auto'
       ? hljs.highlightAuto(source)
       : hljs.highlight(selectLanguage.value, source)
-  ).value;
-  outputText.innerHTML += '<span id="baseline"></span>';
+    ).value +
+    '<span id="baseline"></span></span>';
+
+  if (crtSwitch.selected) glowify();
 }
 
 selectLanguage.listen('MDCSelect:change', () => {
   window.localStorage.highlightLanguage = selectLanguage.value;
   highlight();
+});
+crtSwitch.listen('click', () => {
+  window.localStorage.highlightCrt = crtSwitch.selected;
+  output.dataset.crt = crtSwitch.selected.toString();
+  if (crtSwitch.selected) {
+    glowify();
+  } else {
+    deglowify();
+  }
 });
 inputText.listen('input', debounce(highlight));
 
@@ -54,22 +83,14 @@ selectTheme.listen('MDCSelect:change', () => {
 const shadowSwitch = new MDCSwitch(document.querySelector('#shadow-switch')!);
 shadowSwitch.listen('click', () => {
   window.localStorage.highlightShadow = shadowSwitch.selected;
-  if (shadowSwitch.selected) {
-    output.classList.add('shadow');
-  } else {
-    output.classList.remove('shadow');
-  }
+  output.dataset.shadow = shadowSwitch.selected.toString();
 });
 
 const attributionSwitch = new MDCSwitch(document.querySelector('#attribution-switch')!);
 const attribution = document.querySelector('#attribution') as HTMLElement;
 attributionSwitch.listen('click', () => {
   window.localStorage.highlightAttribution = attributionSwitch.selected;
-  if (attributionSwitch.selected) {
-    output.classList.add('attribution');
-  } else {
-    output.classList.remove('attribution');
-  }
+  output.dataset.attribution = attributionSwitch.selected.toString();
 });
 
 const allCss = Array.from(document.styleSheets)
@@ -94,6 +115,9 @@ function getStyleDiff(baseline: Set<CSSStyleRule>, element: HTMLElement): string
       decls.push(`${name}: ${value}`);
     }
   }
+  if (crtSwitch.selected && element.style.textShadow !== '') {
+    decls.push(`text-shadow:${element.style.textShadow}`);
+  }
   return decls.join(';');
 }
 
@@ -112,6 +136,7 @@ function inlinifyNodes(baseline: Set<CSSStyleRule>, node: ChildNode): string {
 
 const snackbar = new MDCSnackbar(document.querySelector('.mdc-snackbar')!);
 const copyHtml = new MDCRipple(document.querySelector('#copy-html')!);
+const crt = document.querySelector('#crt') as HTMLElement;
 copyHtml.listen('click', async () => {
   const pre = window.getComputedStyle(outputPre);
   const baseline = getMatchedCSSRules(document.querySelector('#baseline')!);
@@ -122,6 +147,10 @@ copyHtml.listen('click', async () => {
   if (attributionSwitch.selected) html += ';margin-bottom:0';
   if (shadowSwitch.selected) html += `;box-shadow:${pre.boxShadow}`;
   html += '">';
+
+  if (crtSwitch.selected) {
+    html += crt.outerHTML.replace(' id="crt"', '').replace(/\s+/g, ' ');
+  }
 
   if (title.value.length > 0) {
     html +=
@@ -156,12 +185,17 @@ if (window.localStorage.highlightTheme) {
   selectTheme.setValue(window.localStorage.highlightTheme);
 }
 
+if (window.localStorage.highlightCrt === 'true') {
+  crtSwitch.selected = true;
+  output.dataset.crt = 'true';
+}
+
 if (window.localStorage.highlightShadow === 'true') {
   shadowSwitch.selected = true;
-  output.classList.add('shadow');
+  output.dataset.shadow = 'true';
 }
 
 if (window.localStorage.highlightAttribution === 'false') {
   attributionSwitch.selected = false;
-  output.classList.remove('attribution');
+  output.dataset.attribution = 'true';
 }
