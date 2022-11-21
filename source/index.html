@@ -99,7 +99,9 @@
             <span class="mdc-select__ripple"></span>
             <span id="theme-label" class="mdc-floating-label">Theme</span>
             <span class="mdc-select__selected-text-container">
-              <span id="theme-selected" class="mdc-select__selected-text">{{defaultTheme.name}}</span>
+              <span id="theme-selected" class="mdc-select__selected-text"
+                >{{defaultTheme.name}}</span
+              >
             </span>
             <span class="mdc-select__dropdown-icon">
               <svg class="mdc-select__dropdown-icon-graphic" viewBox="7 10 10 5" focusable="false">
@@ -122,9 +124,12 @@
           <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
             <ul class="mdc-list" role="listbox" aria-label="Theme picker listbox">
               {% for theme in themes %}
-              <li class="mdc-list-item {% if theme.id == defaultTheme.id %}mdc-list-item--selected{% endif %}"
-              aria-selected="{% if theme.id == defaultTheme.id %}true{% endif %}"
-              data-value="{{theme.id}}" role="option">
+              <li
+                class="mdc-list-item {% if theme.id == defaultTheme.id %}mdc-list-item--selected{% endif %}"
+                aria-selected="{% if theme.id == defaultTheme.id %}true{% endif %}"
+                data-value="{{theme.id}}"
+                role="option"
+              >
                 <span class="mdc-list-item__ripple"></span>
                 <span class="mdc-list-item__text">{{theme.name}}</span>
               </li>
@@ -134,14 +139,55 @@
         </div>
       </div>
 
+      <div class="row">
+        <button
+          id="attribution-switch"
+          class="mdc-switch mdc-switch--selected"
+          type="button"
+          role="switch"
+          aria-checked="true"
+        >
+          <div class="mdc-switch__track"></div>
+          <div class="mdc-switch__handle-track">
+            <div class="mdc-switch__handle">
+              <div class="mdc-switch__shadow">
+                <div class="mdc-elevation-overlay"></div>
+              </div>
+              <div class="mdc-switch__ripple"></div>
+              <div class="mdc-switch__icons">
+                <svg class="mdc-switch__icon mdc-switch__icon--on" viewBox="0 0 24 24">
+                  <path d="M19.69,5.23L8.96,15.96l-4.23-4.23L2.96,13.5l6,6L21.46,7L19.69,5.23z" />
+                </svg>
+                <svg class="mdc-switch__icon mdc-switch__icon--off" viewBox="0 0 24 24">
+                  <path d="M20 13H4v-2h16v2z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <span class="mdc-switch__focus-ring-wrapper">
+            <div class="mdc-switch__focus-ring"></div>
+          </span>
+        </button>
+        <label for="attribution-switch">Include link to this generator</label>
+      </div>
+
       <pre
         class="mdc-text-field mdc-text-field--filled mdc-text-field--textarea mdc-text-field--disabled code hljs"
       >
         <span class="mdc-floating-label mdc-floating-label--float-above">Highlighted</span>
-        <code
-          class="mdc-text-field__input"W
-        ></code>
+        <code class="mdc-text-field__input"></code>
       </pre>
+      <div
+        id="attribution"
+        style="
+          text-align: right;
+          font-size: min(1.87vw, 70%);
+          opacity: 0.7;
+          margin-bottom: 1.7142857em;
+        "
+      >
+        made with @nex3's <a href="https://nex3.github.io/cohost-highlight">syntax highlighter</a>
+      </div>
       <div>
         <button class="mdc-button mdc-button--raised" id="copy-html">
           <span class="mdc-button__ripple"></span>

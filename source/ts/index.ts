@@ -3,6 +3,7 @@ import hljs from 'highlightjs';
 import {MDCTextField} from '@material/textfield';
 import {MDCSelect} from '@material/select';
 import {MDCRipple} from '@material/ripple';
+import {MDCSwitch} from '@material/switch';
 import escapeHTML from 'escape-html';
 
 function debounce<T extends Function>(fn: T, wait = 200): T {
@@ -43,6 +44,16 @@ title.listen('input', () => {
 const selectTheme = new MDCSelect(document.querySelector('#select-theme')!);
 selectTheme.listen('MDCSelect:change', () => {
   output.dataset.theme = selectTheme.value;
+});
+
+const attributionSwitch = new MDCSwitch(document.querySelector('#attribution-switch')!);
+const attribution = document.querySelector('#attribution') as HTMLElement;
+attributionSwitch.listen('click', () => {
+  if (attributionSwitch.selected) {
+    attribution.style.removeProperty('display');
+  } else {
+    attribution.style.display = 'none';
+  }
 });
 
 const allCss = Array.from(document.styleSheets)
@@ -87,9 +98,12 @@ const copyHtml = new MDCRipple(document.querySelector('#copy-html')!);
 copyHtml.listen('click', async () => {
   const pre = window.getComputedStyle(outputPre);
   const baseline = getMatchedCSSRules(document.querySelector('#baseline')!);
+
   let html =
     `<pre style="background-color:${pre.backgroundColor};color:${pre.color};position:relative;` +
-    'padding:0">';
+    'padding:0';
+  if (attributionSwitch.selected) html += ';margin-bottom:0';
+  html += '">';
 
   if (title.value.length > 0) {
     html +=
@@ -104,7 +118,12 @@ copyHtml.listen('click', async () => {
   html +=
     '<code style="padding:0 16px;display:block;margin-bottom:9px;' +
     `margin-top:${title.value.length === 0 ? '9px' : '23px'}">` +
-    `${inlinifyNodes(baseline, outputText)}</code>`;
-  await navigator.clipboard.writeText(html + '</code></pre>');
+    `${inlinifyNodes(baseline, outputText)}</code></pre>`;
+
+  if (attributionSwitch.selected) {
+    html += attribution.outerHTML.replace(' id="attribution"', '').replace(/\s+/g, ' ');
+  }
+
+  await navigator.clipboard.writeText(html);
   // this._snackBar.open("HTML copied!", undefined, { duration: 1000 });
 });

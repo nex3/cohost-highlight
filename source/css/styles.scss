@@ -58,6 +58,12 @@ body {
   }
 }
 
+#attribution {
+  margin-top: -16px;
+  margin-bottom: 0 !important;
+  color: rgb(25 25 25);
+}
+
 @each $theme in [ 'a11y-dark', 'atelier-lakeside.light', 'dracula', 'paraiso-light', 'a11y-light',
   'atelier-plateau-dark', 'far', 'paraiso.light', 'agate', 'atelier-plateau.dark', 'foundation',
   'pojoaque', 'androidstudio', 'atelier-plateau-light', 'github', 'an-old-hope',
