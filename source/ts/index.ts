@@ -143,7 +143,7 @@ copyHtml.listen('click', async () => {
 
   let html =
     `<pre style="background-color:${pre.backgroundColor};color:${pre.color};position:relative;` +
-    'padding:0';
+    'padding:0;line-height:1.2rem';
   if (attributionSwitch.selected) html += ';margin-bottom:0';
   if (shadowSwitch.selected) html += `;box-shadow:${pre.boxShadow}`;
   html += '">';
