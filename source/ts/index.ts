@@ -51,14 +51,24 @@ selectTheme.listen('MDCSelect:change', () => {
   output.dataset.theme = selectTheme.value;
 });
 
+const shadowSwitch = new MDCSwitch(document.querySelector('#shadow-switch')!);
+shadowSwitch.listen('click', () => {
+  window.localStorage.highlightShadow = shadowSwitch.selected;
+  if (shadowSwitch.selected) {
+    output.classList.add('shadow');
+  } else {
+    output.classList.remove('shadow');
+  }
+});
+
 const attributionSwitch = new MDCSwitch(document.querySelector('#attribution-switch')!);
 const attribution = document.querySelector('#attribution') as HTMLElement;
 attributionSwitch.listen('click', () => {
   window.localStorage.highlightAttribution = attributionSwitch.selected;
   if (attributionSwitch.selected) {
-    attribution.style.removeProperty('display');
+    output.classList.add('attribution');
   } else {
-    attribution.style.display = 'none';
+    output.classList.remove('attribution');
   }
 });
 
@@ -110,6 +120,7 @@ copyHtml.listen('click', async () => {
     `<pre style="background-color:${pre.backgroundColor};color:${pre.color};position:relative;` +
     'padding:0';
   if (attributionSwitch.selected) html += ';margin-bottom:0';
+  if (shadowSwitch.selected) html += `;box-shadow:${pre.boxShadow}`;
   html += '">';
 
   if (title.value.length > 0) {
@@ -145,6 +156,12 @@ if (window.localStorage.highlightTheme) {
   selectTheme.setValue(window.localStorage.highlightTheme);
 }
 
+if (window.localStorage.highlightShadow === 'true') {
+  shadowSwitch.selected = true;
+  output.classList.add('shadow');
+}
+
 if (window.localStorage.highlightAttribution === 'false') {
-  attributionSwitch.emit('click', {});
+  attributionSwitch.selected = false;
+  output.classList.remove('attribution');
 }

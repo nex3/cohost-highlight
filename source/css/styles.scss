@@ -25,6 +25,7 @@ body {
 .row {
   display: flex;
   gap: 16px;
+  justify-content: space-evenly;
 }
 
 #title,
@@ -38,6 +39,11 @@ body {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, liberation mono, courier new,
       monospace;
   }
+}
+
+#input {
+  // Match the vertical positions of the textareas.
+  gap: 48px;
 }
 
 #output .code {
@@ -58,10 +64,19 @@ body {
   }
 }
 
+#output.shadow .code {
+  box-shadow: 1px 2px 4px rgb(0 0 0 / 0.2);
+}
+
 #attribution {
   margin-top: -16px;
   margin-bottom: 0 !important;
   color: rgb(25 25 25);
+  display: none;
+
+  #output.attribution & {
+    display: block;
+  }
 }
 
 @each $theme in [ 'a11y-dark', 'atelier-lakeside.light', 'dracula', 'paraiso-light', 'a11y-light',
