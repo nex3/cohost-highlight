@@ -102,7 +102,17 @@ const allCss = Array.from(document.styleSheets)
   )
   .flat();
 function getMatchedCSSRules(element: HTMLElement): Set<CSSStyleRule> {
-  return new Set(allCss.filter(rule => element.matches(rule.selectorText)));
+  return new Set(
+    allCss.filter(rule => {
+      try {
+        return element.matches(rule.selectorText);
+      } catch {
+        /* Sometimes Safari can get scared of its own rule declarations,    *
+         * so we should just treat those (and other errors) as non-matching */
+        return false;
+      }
+    })
+  );
 }
 
 function getStyleDiff(baseline: Set<CSSStyleRule>, element: HTMLElement): string {
